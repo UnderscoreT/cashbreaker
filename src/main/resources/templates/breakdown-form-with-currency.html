@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cash Breakdown</title>
+    <link rel="stylesheet" th:href="@{/main.css}" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <meta charset="UTF-8">
+
+        <!-- Page Title -->
+        <title>Instant Cash Breakdown Tool | SizaFuel</title>
+        <meta name="description" content="Generate fast, simple cash breakdowns in under 1 second. Perfect for anyone who works with money, tellers, banks, cashiers, and service desks. Free and global.">
+
+        <!-- Open Graph (Facebook, LinkedIn) -->
+        <meta property="og:title" content="Instant Cash Breakdown Tool | SizaFuel">
+        <meta property="og:description" content="Tired of calculating your till manually? Use this lightning-fast cash breakdown tool made for banks, tills, and customer desks.">
+        <meta property="og:url" content="https://sizafuel.xyz">
+        <meta property="og:type" content="wteebsi">
+        <meta property="og:image" content="https://sizafuel.xyz/preview.png"> <!-- Optional, add a nice preview image -->
+
+        <!-- Twitter Card -->                                          how will they work
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Instant Cash Breakdown Tool | SizaFuel">
+        <meta name="twitter:description" content="Break down your cash fast. Free. Global. Instant.">
+        <meta name="twitter:image" content="https://sizafuel.xyz/preview.png"> <!-- Optional -->
+
+        <!-- Favicon -->
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">  <!-- why is search result excuding the favicon -->
+
+        <!-- Canonical URL -->
+        <link rel="canonical" href="https://sizafuel.xyz">
+
+        <!-- Tailwind CSS -->
+        <link rel="stylesheet" th:href="@{/main.css}">
+
+        <!-- JavaScript (if needed) -->
+        <script th:src="@{/main.js}" defer></script>
+
+
+
+
+
+</head>
+<body class="bg-gradient-to-r from-gray-100 via-white to-gray-200 min-h-screen flex items-center justify-center px-4">
+
+<div class="max-w-md mx-auto">
+
+<div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 space-y-4">
+    <div class="flex items-center justify-between">
+        <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3m0-6c1.657 0 3 1.343 3 3s-1.343 3-3 3m0-6v12m0-12C6.477 8 2 9.79 2 12s4.477 4 10 4 10-1.79 10-4-4.477-4-10-4z"/>
+            </svg>
+            Cash Breakdown - <span th:text="${currency.toUpperCase()}">USD</span>
+        </h1>
+    </div>
+
+    <form th:action="@{/submit-breakdown}" method="post" class="space-y-3">
+        <input type="hidden" name="currency" th:value="${currency}" />
+
+        <div th:each="denom : ${denominations}" class="flex items-center justify-between border-b py-2">
+            <label class="text-sm text-gray-700 font-medium flex gap-1 items-center">
+                <span th:text="|${symbol}${denom}|"></span>
+                <span class="text-xs text-gray-400">×</span>
+            </label>
+            <input
+                    type="number"
+                    name="counts"
+                    min="0"
+                    value="0"
+                    th:attr="data-denom=${denom}"
+                    class="denom-input w-20 px-2 py-1 text-sm border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+        </div>
+
+        <div class="text-right mt-4 text-gray-700 text-sm font-semibold">
+            Total: <span id="totalDisplay">0.00</span>
+        </div>
+
+        <button
+                type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-xl shadow font-semibold transition duration-200"
+        >
+            Submit Breakdown
+        </button>
+    </form>
+</div>
+
+<footer class="mt-10 text-center text-xs text-gray-500">
+    <p>
+        &copy; <span id="year"></span> <a href="https://sizafuel.xyz" class="text-blue-600 hover:underline">SizaFuel</a>.
+        Made for cashiers, banks & service desks worldwide 💸
+    </p>
+</footer>
+</div>
+
+<script>
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+
+<script>
+    function calculateTotal() {
+        let total = 0;
+        document.querySelectorAll(".denom-input").forEach(input => {
+            const denom = parseFloat(input.dataset.denom);
+            const count = parseFloat(input.value) || 0;
+            total += denom * count;
+        });
+        document.getElementById("totalDisplay").textContent = total.toFixed(2);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".denom-input").forEach(input => {
+            input.addEventListener("input", calculateTotal);
+        });
+    });
+</script>
+
+</body>
+</html>

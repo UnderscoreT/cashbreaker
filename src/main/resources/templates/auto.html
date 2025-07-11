@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-Currency Cash Breakdown</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+<div class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-6">Multi-Currency Cash Breakdown</h1>
+    <form method="post" th:action="@{/submit}">
+        <!-- USD Breakdown -->
+        <h2 class="text-xl font-semibold mt-4 mb-2">USD</h2>
+        <div class="grid grid-cols-3 gap-4">
+            <div>
+                <label class="block font-medium">USD 100</label>
+                <input type="number" name="usd100" class="quantity w-full p-2 border rounded" data-value="100" />
+            </div>
+            <div>
+                <label class="block font-medium">USD 50</label>
+                <input type="number" name="usd50" class="quantity w-full p-2 border rounded" data-value="50" />
+            </div>
+            <div>
+                <label class="block font-medium">USD 20</label>
+                <input type="number" name="usd20" class="quantity w-full p-2 border rounded" data-value="20" />
+            </div>
+            <div>
+                <label class="block font-medium">USD 10</label>
+                <input type="number" name="usd10" class="quantity w-full p-2 border rounded" data-value="10" />
+            </div>
+            <div>
+                <label class="block font-medium">USD 5</label>
+                <input type="number" name="usd5" class="quantity w-full p-2 border rounded" data-value="5" />
+            </div>
+            <div>
+                <label class="block font-medium">USD 1</label>
+                <input type="number" name="usd1" class="quantity w-full p-2 border rounded" data-value="1" />
+            </div>
+        </div>
+
+        <!-- ZWL Breakdown -->
+        <h2 class="text-xl font-semibold mt-8 mb-2">ZWL</h2>
+        <div class="grid grid-cols-3 gap-4">
+            <div>
+                <label class="block font-medium">ZWL 1000</label>
+                <input type="number" name="zwl1000" class="quantity w-full p-2 border rounded" data-value="1000" />
+            </div>
+            <div>
+                <label class="block font-medium">ZWL 500</label>
+                <input type="number" name="zwl500" class="quantity w-full p-2 border rounded" data-value="500" />
+            </div>
+            <div>
+                <label class="block font-medium">ZWL 200</label>
+                <input type="number" name="zwl200" class="quantity w-full p-2 border rounded" data-value="200" />
+            </div>
+            <div>
+                <label class="block font-medium">ZWL 100</label>
+                <input type="number" name="zwl100" class="quantity w-full p-2 border rounded" data-value="100" />
+            </div>
+            <div>
+                <label class="block font-medium">ZWL 50</label>
+                <input type="number" name="zwl50" class="quantity w-full p-2 border rounded" data-value="50" />
+            </div>
+        </div>
+
+        <!-- Total Display -->
+        <div class="mt-6">
+            <label for="total" class="block font-medium text-gray-700">Total:</label>
+            <input type="text" id="total" name="total" readonly
+                   class="w-full p-2 border border-gray-300 rounded bg-gray-100 text-gray-700 font-semibold" />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mt-6 text-right">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- JavaScript for live total calculation -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function updateTotal() {
+            let total = 0;
+            document.querySelectorAll('.quantity').forEach(input => {
+                const qty = parseFloat(input.value) || 0;
+                const value = parseFloat(input.dataset.value) || 0;
+                total += qty * value;
+            });
+            document.getElementById('total').value = total.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        document.querySelectorAll('.quantity').forEach(input => {
+            input.addEventListener('input', updateTotal);
+        });
+
+        updateTotal(); // Run on load
+    });
+</script>
+</body>
+</html>
