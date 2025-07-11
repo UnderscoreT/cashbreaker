@@ -12,12 +12,12 @@ import java.util.Map;
 @Controller
 public class BreakdownController {
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index() {
 //        return "breakdown";
 //        return "fun";
 //        return "auto";
-        return "select-currency";
+        return "index";
     }
     @GetMapping("/select-currency")
     public String selectCurrencyPage() {
