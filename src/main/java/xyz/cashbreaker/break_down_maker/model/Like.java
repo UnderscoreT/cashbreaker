@@ -16,9 +16,16 @@ public class Like {
     private Long id;
 
     private int count = 0;
-
+    private String page;
 
     public Like(int i) {
         this.count = i;
+    }
+
+    public Like(String home, int i) {
+        this.count = i;
+    }
+
+    public void setPage(String home) {
     }
 }
