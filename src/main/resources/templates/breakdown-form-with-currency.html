@@ -194,6 +194,47 @@
     }
 </script>
 
+<button id="like-button"
+        class="text-[22px] p-5 cursor-pointer absolute bottom-[50px] right-[50px] bg-pink-500 text-white rounded-full shadow-lg hover:bg-pink-600">
+    ❤️ Like
+</button>
+
+<p id="like-message" class="absolute bottom-[130px] right-[50px] text-sm text-white hidden"></p>
+
+      <script >
+          document.addEventListener("DOMContentLoaded", () => {
+              const likeButton = document.getElementById("like-button");
+              const likeCount = document.getElementById("like-count");
+
+              // Load initial count
+              fetch("/api/likes")
+                  .then(res => res.json())
+                  .then(count => {
+                      likeCount.textContent = `Likes: ${count}`;
+                  })
+                  .catch(() => {
+                      likeCount.textContent = "Failed to load likes";
+                  });
+
+              // Handle button click
+              likeButton.addEventListener("click", () => {
+                  fetch("/api/likes/increment", {
+                      method: "POST"
+                  })
+                      .then(res => res.json())
+                      .then(newCount => {
+                          likeCount.textContent = `Likes: ${newCount}`;
+                      })
+                      .catch(() => {
+                          likeCount.textContent = "Error updating like";
+                      });
+              });
+          });
+
+      </script>
+
+
+
 
 </body>
 </html>
