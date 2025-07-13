@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import xyz.cashbreaker.break_down_maker.model.LikeEntity;
+import xyz.cashbreaker.break_down_maker.model.Like;
 import xyz.cashbreaker.break_down_maker.repository.LikeRepository;
 
 
@@ -29,19 +29,19 @@ public class LikesController {
                     .body("You've already liked this.");
         }
 
-        LikeEntity likeEntity;
+        Like like;
 
         if (likeRepository.count() == 0) {
-            likeEntity = likeRepository.save(new LikeEntity(1));
+            like = likeRepository.save(new Like(1));
         } else {
-            likeEntity = likeRepository.findAll().get(0);
-            likeEntity.setCount(likeEntity.getCount() + 1);
-            likeRepository.save(likeEntity);
+            like = likeRepository.findAll().get(0);
+            like.setCount(like.getCount() + 1);
+            likeRepository.save(like);
         }
 
         session.setAttribute("liked", true);
 
-        return ResponseEntity.ok(likeEntity.getCount());
+        return ResponseEntity.ok(like.getCount());
     }
 
     @GetMapping

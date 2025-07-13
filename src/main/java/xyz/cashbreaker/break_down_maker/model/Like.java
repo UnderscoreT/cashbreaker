@@ -9,7 +9,7 @@ import lombok.*;
 
 
 @NoArgsConstructor
-public class LikeEntity {
+public class Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class LikeEntity {
     private int count = 0;
 
 
-    public LikeEntity(int i) {
+    public Like(int i) {
         this.count = i;
     }
 }
