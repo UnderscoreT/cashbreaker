@@ -26,6 +26,5 @@ public class Like {
         this.count = i;
     }
 
-    public void setPage(String home) {
-    }
+
 }
