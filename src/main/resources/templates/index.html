@@ -1,136 +1,115 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" class="scroll-smooth">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>CashBreaker - Multi-Currency Cash Breakdown Tool</title>
 
-    <title>Instant Cash Breakdown Tool | SizaFuel</title>
-
-    <!-- Primary Meta Tags -->
+    <!-- Meta Tags -->
     <meta name="title" content="Generate fast, simple cash breakdowns in under 1 second. CashBreaker - Multi-Currency Cash Breakdown Tool" />
-    <meta name="description" content="A lightweight tool to calculate and summarize multi-currency cash breakdowns. Built for  cashiers, banks, and service desks, fuel attendants, anyone who works with money." />
+    <meta name="description" content="A lightweight tool to calculate and summarize multi-currency cash breakdowns." />
     <meta name="keywords" content="cash calculator, currency breakdown, multi-currency, finance tool, cash count, spring boot app" />
     <meta name="author" content="Obey Blessing Sibanda" />
     <meta name="robots" content="index, follow" />
 
-
-
-
-    <!-- Open Graph (Facebook, LinkedIn) -->
-    <meta property="og:title" content="Instant Cash Breakdown Tool ">
-    <meta property="og:description" content="Tired of calculating your till manually? Use this lightning-fast cash breakdown tool made for banks, tills, and customer desks.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Instant Cash Breakdown Tool">
+    <meta property="og:description" content="Tired of calculating your till manually? Use this lightning-fast cash breakdown tool.">
     <meta property="og:url" content="https://sizafuel.xyz">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://cashbreaker.sizafuel.xyz/preview.png"> <!-- Optional, add a nice preview image -->
+    <meta property="og:image" content="https://cashbreaker.sizafuel.xyz/preview.png">
 
+    <!-- Tailwind CSS (compiled) -->
+    <link rel="stylesheet" th:href="@{/main.css}" />
 
-    <!-- Meta tags... (unchanged) -->
-    <!-- Tailwind CSS and Config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        grey: '#d1d5db',
-                        lightgray: '#facc15',
-                    }
-                }
-            }
+    <!-- Animations -->
+    <style>
+        @keyframes fade-in {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-    </script>
+        .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-600 { animation-delay: 0.6s; }
+    </style>
 </head>
 
-<body class="bg-gradient-to-r from-grey via-yello to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen flex flex-col text-gray-800 dark:text-gray-100 transition-colors duration-300">
+<body class="bg-black text-white min-h-screen flex flex-col transition-colors duration-300">
 
 <!-- Navbar -->
-<nav class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-            <!-- Logo -->
-            <div class="text-gray-700 dark:text-gray-100 font-bold text-xl">CashBreaker</div>
-
-            <!-- Desktop Nav -->
-            <div class="hidden md:flex space-x-6">
-                <a href="/" class="text-gray-700 dark:text-gray-100 hover:text-purple-700 dark:hover:text-yellow-300 text-sm sm:text-base font-medium">Home</a>
-                <a href="/#" class="text-gray-700 dark:text-gray-100 hover:text-purple-700 dark:hover:text-yellow-300 text-sm sm:text-base font-medium">About</a>
-                <a href="#" class="text-gray-700 dark:text-gray-100 hover:text-purple-700 dark:hover:text-yellow-300 text-sm sm:text-base font-medium">Tools</a>
-            </div>
-
-            <!-- Right controls -->
-            <div class="flex items-center space-x-4">
-                <!-- Theme toggle -->
-                <button id="theme-toggle" class="text-gray-700 dark:text-yellow-300 hover:scale-110 transition transform">
-                    <svg id="sun-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 3v1m0 16v1m8.66-12.34l-.71.71m-12.02 12.02l-.71.71M21 12h-1M4 12H3m16.34 4.66l-.71-.71M6.37 6.37l-.71-.71M12 5a7 7 0 100 14 7 7 0 000-14z" />
-                    </svg>
-                    <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
-
-                <!-- Hamburger (mobile) -->
-                <button id="menu-toggle" class="md:hidden focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-700 dark:text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
+<nav class="bg-black text-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+        <div class="font-bold text-xl">CashBreaker</div>
+        <div class="hidden md:flex space-x-6">
+            <a href="/" class="hover:text-yellow-400 text-base font-medium">Home</a>
+            <a href="/#" class="hover:text-yellow-400 text-base font-medium">About</a>
+            <a href="#" class="hover:text-yellow-400 text-base font-medium">Tools</a>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden hidden flex-col space-y-2 mt-2 pb-4">
-            <a href="/" class="block px-4 py-2 text-gray-700 dark:text-gray-100 hover:text-purple-700 dark:hover:text-yellow-300">Home</a>
-            <a href="/#" class="block px-4 py-2 text-gray-700 dark:text-gray-100 hover:text-purple-700 dark:hover:text-yellow-300">About</a>
-            <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-100 hover:text-purple-700 dark:hover:text-yellow-300">Tools</a>
+        <div class="flex items-center space-x-4">
+            <button id="theme-toggle" class="hover:scale-110 transition transform">
+                <svg id="sun-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 3v1m0 16v1m8.66-12.34l-.71.71M4.05 4.05l-.71.71M21 12h-1M4 12H3m16.34 4.66l-.71-.71M6.34 6.34l-.71-.71M12 5a7 7 0 100 14 7 7 0 000-14z"/>
+                </svg>
+                <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                </svg>
+            </button>
+            <button id="menu-toggle" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
         </div>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden flex-col space-y-2 mt-2 pb-4 px-4">
+        <a href="/" class="hover:text-yellow-400">Home</a>
+        <a href="/#" class="hover:text-yellow-400">About</a>
+        <a href="#" class="hover:text-yellow-400">Tools</a>
     </div>
 </nav>
 
-<!-- Header -->
-<header class="text-center p-8 sm:p-10 text-purple-600 dark:text-yellow-300 drop-shadow-lg">
-    <h1 class="text-3xl sm:text-5xl font-extrabold mb-2">CashBreaker</h1>
-    <p class="text-base sm:text-lg font-semibold tracking-wide">
-        Your lightweight multi-currency cash breakdown calculator.
-    </p>
-</header>
+<!-- Hero -->
+<section id="hero" class="py-12 bg-black">
+    <div class="container mx-auto flex flex-col md:flex-row items-center px-4 md:px-8">
+        <div class="w-full md:w-1/2 text-center md:text-left space-y-4">
+            <h1 class="text-4xl sm:text-5xl font-bold animate-fade-in">Break Down Cash—Instantly.</h1>
+            <p class="text-lg sm:text-xl text-gray-300 animate-fade-in delay-200">
+                Fast, fun, and accurate—designed for tills, desks, and everyday cash counts.
+            </p>
+
+        </div>
+        <div class="w-full md:w-1/2 mt-8 md:mt-0 flex justify-center animate-fade-in delay-600">
+            <img th:src="@{img/jakub-zerdzicki-hIbCtd-gjqM-unsplash.jpg}" alt="man working with calculator"
+                 class="rounded-lg shadow-lg w-full max-w-md object-cover" />
+        </div>
+    </div>
+</section>
 
 <!-- Main -->
 <main class="flex-grow flex flex-col items-center justify-center px-4 sm:px-6 max-w-3xl mx-auto">
-    <p class="text-sm sm:text-xl mb-8 text-center text-gray-800 dark:text-gray-100">
-        This tool helps you quickly and accurately calculate and summarize cash in multiple currencies.
-    </p>
-    <a
-            th:href="@{/select-currency}"
-            class="bg-purple-600 dark:bg-yellow-400 text-white dark:text-black font-bold py-3 px-6 sm:px-8 rounded-full shadow-lg hover:bg-purple-700 dark:hover:bg-yellow-300 transition-colors duration-300"
-    >
+    <p class="text-xl mb-8 text-center">This tool helps you quickly and accurately calculate and summarize cash in multiple currencies.</p>
+    <a th:href="@{/select-currency}" class="bg-white text-black font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-300 transition-colors duration-300">
         Start a Breakdown
     </a>
 </main>
 
-
-
 <!-- Footer -->
-<footer class="bg-purple-300 dark:bg-gray-900 text-purple-800 dark:text-gray-200 text-center py-6 mt-12 text-sm sm:text-base">
-    <p>Made with ❤️</p>
-    <p>Version 1.0 | <a href="mailto:obey@sizafuel.xyz" class="underline hover:text-white">Contact</a></p>
+<footer class="bg-black text-white text-center py-6 mt-12 text-sm sm:text-base">
+    <p>Copyright 2025 &copy; <a href="mailto:obey@sizafuel.xyz" class="underline hover:text-yellow-400">BlestCodeStudios</a></p>
 </footer>
 
 <!-- Scripts -->
 <script>
-    // Mobile menu toggle
     document.getElementById('menu-toggle').addEventListener('click', () => {
-        const menu = document.getElementById('mobile-menu');
-        menu.classList.toggle('hidden');
+        document.getElementById('mobile-menu').classList.toggle('hidden');
     });
 
-    // Theme toggle
     const themeToggle = document.getElementById('theme-toggle');
     const html = document.documentElement;
     const sunIcon = document.getElementById('sun-icon');
@@ -154,10 +133,8 @@
         setTheme(isDark ? 'light' : 'dark');
     });
 
-    // Load theme from localStorage
-    setTheme(localStorage.getItem('theme') || 'light');
+    setTheme(localStorage.getItem('theme') || 'dark');
 </script>
-
 
 </body>
 </html>
