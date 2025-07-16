@@ -1,60 +1,36 @@
 package xyz.cashbreaker.break_down_maker.web;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import xyz.cashbreaker.break_down_maker.model.Like;
-import xyz.cashbreaker.break_down_maker.repository.LikeRepository;
-
+import xyz.cashbreaker.break_down_maker.service.LikeService;
 
 @RestController
 @RequestMapping("/api/likes")
 public class LikesController {
 
-    private final LikeRepository likeRepository;
+    private final LikeService likeService;
 
-
-
-    public LikesController(LikeRepository likeRepository) {
-        this.likeRepository = likeRepository;
+    public LikesController(LikeService likeService) {
+        this.likeService = likeService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> addLike(HttpSession session) {
-        System.out.println("Session ID: " + session.getId());
-        System.out.println("Already liked? " + session.getAttribute("liked"));
-
-
-        Boolean liked = (Boolean) session.getAttribute("liked");
-
-        if (Boolean.TRUE.equals(liked)) {
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
-                    .body("You've already liked this.");
-        }
-
-        Like like;
-
-        if (likeRepository.count() == 0) {
-            like = likeRepository.save(new Like(1));
-        } else {
-            like = likeRepository.findAll().get(0);
-            like.setCount(like.getCount() + 1);
-            likeRepository.save(like);
-        }
-
-        session.setAttribute("liked", true);
-        System.out.println("Like saved, session marked as liked.");
-        return ResponseEntity.ok(like.getCount());
-    }
+    private static final String PAGE_ID = "breakdown-form";
+    private static final String SESSION_KEY = "liked_" + PAGE_ID;
 
     @GetMapping
     public ResponseEntity<Integer> getLikes() {
-        if (likeRepository.count() == 0) {
-            return ResponseEntity.ok(0);
-        }
+        int likes = likeService.getLikes(PAGE_ID);
+        return ResponseEntity.ok(likes);
+    }
 
-        return ResponseEntity.ok(likeRepository.findAll().get(0).getCount());
+    @PostMapping
+    public ResponseEntity<?> like(HttpSession session) {
+        if (Boolean.TRUE.equals(session.getAttribute(SESSION_KEY))) {
+            return ResponseEntity.status(429).body("Already liked");
+        }
+        session.setAttribute(SESSION_KEY, true);
+        int newCount = likeService.incrementLike(PAGE_ID);
+        return ResponseEntity.ok(newCount);
     }
 }
-
