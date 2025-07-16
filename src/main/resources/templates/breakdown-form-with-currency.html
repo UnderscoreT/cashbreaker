@@ -2,151 +2,156 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cash Breakdown</title>
-    <link rel="stylesheet" th:href="@{/main.css}" />
-
+    <title>Instant Cash Breakdown Tool | SizaFuel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-    <meta charset="UTF-8">
-
-        <!-- Page Title -->
-        <title>Instant Cash Breakdown Tool | SizaFuel</title>
-
-    <!-- Primary Meta Tags -->
+    <!-- SEO + Social -->
     <meta name="title" content="Generate fast, simple cash breakdowns in under 1 second. CashBreaker - Multi-Currency Cash Breakdown Tool" />
-    <meta name="description" content="A lightweight tool to calculate and summarize multi-currency cash breakdowns. Built for  cashiers, banks, and service desks, fuel attendants, anyone who works with money." />
-    <meta name="keywords" content="cash calculator, currency breakdown, multi-currency, finance tool, cash count, spring boot app" />
+    <meta name="description" content="A lightweight tool to calculate and summarize multi-currency cash breakdowns. Built for cashiers, banks, and service desks." />
     <meta name="author" content="Obey Blessing Sibanda" />
     <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Instant Cash Breakdown Tool | SizaFuel">
+    <meta property="og:description" content="Use this lightning-fast cash breakdown tool made for banks, tills, and customer desks.">
+    <meta property="og:url" content="https://sizafuel.xyz">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://cashbreaker.sizafuel.xyz/preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Instant Cash Breakdown Tool | SizaFuel">
+    <meta name="twitter:description" content="Break down your cash fast. Free. Global. Instant.">
+    <meta name="twitter:image" content="https://cashbreaker.sizafuel.xyz/preview.png">
 
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://cashbreaker.sizafuel.xyz">
+    <link rel="stylesheet" th:href="@{/main.css}">
 
+    <!-- Custom inline styles for like button and heart animation -->
+<!--    <style>-->
+<!--        .like-container {-->
+<!--            width: 100%;-->
+<!--            margin-top: 1.5rem;-->
+<!--            text-align: center;-->
+<!--        }-->
 
+<!--        .like-btn {-->
+<!--            display: inline-block;-->
+<!--            padding: 20px;-->
+<!--            font-size: 22px;-->
+<!--            cursor: pointer;-->
+<!--            position: static;-->
+<!--            width: 100%;-->
+<!--            color: #4B5563;-->
+<!--            background-color: #fbcfe8;-->
+<!--            border-radius: 9999px;-->
+<!--            transition: background-color 0.2s ease;-->
+<!--        }-->
 
-        <!-- Open Graph (Facebook, LinkedIn) -->
-        <meta property="og:title" content="Instant Cash Breakdown Tool | SizaFuel">
-        <meta property="og:description" content="Tired of calculating your till manually? Use this lightning-fast cash breakdown tool made for banks, tills, and customer desks.">
-        <meta property="og:url" content="https://sizafuel.xyz">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="https://cashbreaker.sizafuel.xyz/preview.png"> <!-- Optional, add a nice preview image -->
+<!--        .like-btn:hover {-->
+<!--            background-color: #f9a8d4;-->
+<!--        }-->
 
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Instant Cash Breakdown Tool | SizaFuel">
-        <meta name="twitter:description" content="Break down your cash fast. Free. Global. Instant.">
-        <meta name="twitter:image" content="https://cashbreaker.sizafuel.xyz/preview.png"> <!-- Optional -->
+<!--        .like-count {-->
+<!--            font-size: 0.875rem;-->
+<!--            color: #4B5563;-->
+<!--            text-align: center;-->
+<!--            margin-top: 0.5rem;-->
+<!--        }-->
 
-        <!-- Favicon -->
-        <link rel="icon" href="/favicon.ico" type="image/x-icon">  <!-- why is search result excuding the favicon -->
+<!--        @media (min-width: 768px) {-->
+<!--            .like-container {-->
+<!--                position: fixed;-->
+<!--                bottom: 50px;-->
+<!--                right: 50px;-->
+<!--                width: auto;-->
+<!--                text-align: right;-->
+<!--            }-->
 
-        <!-- Canonical URL -->
-        <link rel="canonical" href="https://cashbreaker.sizafuel.xyz">
+<!--            .like-btn {-->
+<!--                width: auto;-->
+<!--            }-->
+<!--        }-->
 
-        <!-- Tailwind CSS -->
-        <link rel="stylesheet" th:href="@{/main.css}">
+<!--        @keyframes pulse-heart {-->
+<!--            0% { transform: scale(1); }-->
+<!--            25% { transform: scale(1.4); }-->
+<!--            50% { transform: scale(0.95); }-->
+<!--            75% { transform: scale(1.1); }-->
+<!--            100% { transform: scale(1); }-->
+<!--        }-->
 
-        <!-- JavaScript (if needed) -->
-        <script th:src="@{/main.js}" defer></script>
-
-
-
-
-
+<!--        .heart-pulse {-->
+<!--            animation: pulse-heart 0.6s ease-in-out;-->
+<!--        }-->
+<!--    </style>-->
 </head>
+
 <body class="bg-gradient-to-r from-gray-100 via-white to-gray-200 min-h-screen flex items-center justify-center px-4">
-
-
-
 <div class="max-w-md mx-auto">
 
-<div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 space-y-4">
-    <div class="flex items-center justify-between">
-        <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
-                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3m0-6c1.657 0 3 1.343 3 3s-1.343 3-3 3m0-6v12m0-12C6.477 8 2 9.79 2 12s4.477 4 10 4 10-1.79 10-4-4.477-4-10-4z"/>
-            </svg>
-            Cash Breakdown - <span th:text="${currency.toUpperCase()}">USD</span>
-        </h1>
-    </div>
-
-    <form th:action="@{/submit-breakdown}" method="post" class="space-y-3">
-        <input type="hidden" name="currency" th:value="${currency}" />
-
-        <div th:each="denom : ${denominations}" class="flex items-center justify-between border-b py-2">
-            <label class="text-sm text-gray-700 font-medium flex gap-1 items-center">
-                <span th:text="|${symbol}${denom}|"></span>
-                <span class="text-xs text-gray-400">×</span>
-            </label>
-            <input
-                    type="number"
-                    name="counts"
-                    min="0"
-                    value="0"
-                    th:attr="data-denom=${denom}"
-                    class="denom-input w-20 px-2 py-1 text-sm border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 space-y-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3m0-6c1.657 0 3 1.343 3 3s-1.343 3-3 3m0-6v12m0-12C6.477 8 2 9.79 2 12s4.477 4 10 4 10-1.79 10-4-4.477-4-10-4z"/>
+                </svg>
+                Cash Breakdown - <span th:text="${currency.toUpperCase()}">USD</span>
+            </h1>
         </div>
 
-        <div class="text-right mt-4 text-gray-700 text-sm font-semibold">
-            Total: <span id="totalDisplay">0.00</span>
-        </div>
+        <form th:action="@{/submit-breakdown}" method="post" class="space-y-3">
+            <input type="hidden" name="currency" th:value="${currency}" />
 
-
-
-<!--        <button-->
-<!--                type="submit" disabled-->
-<!--                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-xl shadow font-semibold transition duration-200"-->
-<!--        >-->
-<!--            Submit Breakdown-->
-<!--        </button>-->
-
-        <div class="mt-4 space-y-2">
-            <div class="text-right text-gray-700 text-sm font-semibold">
-<!--                Total: <span id="totalDisplay">0.00</span>-->
+            <div th:each="denom : ${denominations}" class="flex items-center justify-between border-b py-2">
+                <label class="text-sm text-gray-700 font-medium flex gap-1 items-center">
+                    <span th:text="|${symbol}${denom}|"></span>
+                    <span class="text-xs text-gray-400">×</span>
+                </label>
+                <input
+                        type="number"
+                        name="counts"
+                        min="0"
+                        value="0"
+                        th:attr="data-denom=${denom}"
+                        class="denom-input w-20 px-2 py-1 text-sm border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
             </div>
+
+            <div class="text-right mt-4 text-gray-700 text-sm font-semibold">
+                Total: <span id="totalDisplay">0.00</span>
+            </div>
+
             <div id="copyAlert" class="text-green-600 text-sm font-medium text-center mb-2 hidden">
                 Copied!
             </div>
 
-
-            <button
-
-                    type="button"
-                    onclick="copyBreakdown()"
-                    style="background-color: #ffffff"
-                    class="w-full  hover:bg-gray-100 !important text-gray-800 py-2 px-4 rounded-xl shadow font-semibold flex items-center justify-center gap-2 transition duration-200"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-500">
+            <button type="button" onclick="copyBreakdown()"
+                    class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 rounded-xl shadow font-semibold flex items-center justify-center gap-2 transition duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 text-gray-500" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round"
                           d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75"/>
                 </svg>
                 Copy Breakdown
             </button>
+        </form>
+    </div>
 
-        </div>
+    <div class="like-container">
+        <button id="like-button" class="like-btn">
+            <span id="heart" class="inline-block">❤️</span> Like
+        </button>
+        <p id="like-count" class="like-count hidden">Likes: 0</p>
+    </div>
 
-
-
-    </form>
-</div>
-
-<footer class="mt-10 text-center text-xs text-gray-500">
-    <p>
-        &copy; <span id="year"></span> <a href="https://sizafuel.xyz" class="text-blue-600 hover:underline">SizaFuel</a>.
-        Made for cashiers, banks & service desks worldwide 💸
-    </p>
-</footer>
+    <footer class="mt-10 text-center text-xs text-gray-500">
+        <p>
+            &copy; <span id="year"></span> <a href="https://sizafuel.xyz" class="text-blue-600 hover:underline">SizaFuel</a>.
+            Made for cashiers, banks & service desks worldwide 💸
+        </p>
+    </footer>
 </div>
 
 <script>
-
     document.getElementById("year").textContent = new Date().getFullYear();
-</script>
 
-
-<script>
     function calculateTotal() {
         let total = 0;
         document.querySelectorAll(".denom-input").forEach(input => {
@@ -157,16 +162,7 @@
         document.getElementById("totalDisplay").textContent = total.toFixed(2);
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".denom-input").forEach(input => {
-            input.addEventListener("input", calculateTotal);
-        });
-    });
-</script>
-
-<script>
     function copyBreakdown() {
-        // Generate a simple breakdown summary
         let breakdown = '';
         let total = 0;
 
@@ -181,60 +177,56 @@
 
         breakdown += `\nTotal: ${total.toFixed(2)}`;
 
-        // Copy to clipboard
         navigator.clipboard.writeText(breakdown).then(() => {
             const alert = document.getElementById('copyAlert');
             alert.classList.remove('hidden');
             alert.textContent = 'Copied!';
-
-            setTimeout(() => {
-                alert.classList.add('hidden');
-            }, 1500);
+            setTimeout(() => alert.classList.add('hidden'), 1500);
         });
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".denom-input").forEach(input => {
+            input.addEventListener("input", calculateTotal);
+        });
+
+        const likeButton = document.getElementById("like-button");
+        const likeCount = document.getElementById("like-count");
+        const heart = document.getElementById("heart");
+
+        // Load like count
+        fetch("/api/likes", { method: "GET", credentials: "include" })
+            .then(res => res.json())
+            .then(count => {
+                likeCount.textContent = `Likes: ${count}`;
+                likeCount.classList.remove("hidden");
+            });
+
+        // Like button logic
+        likeButton.addEventListener("click", () => {
+            fetch("/api/likes", { method: "POST", credentials: "include" })
+                .then(res => {
+                    if (res.status === 429) {
+                        alert("You’ve already liked this.");
+                        return null;
+                    }
+                    return res.json();
+                })
+                .then(count => {
+                    if (count !== null) {
+                        likeCount.textContent = `Likes: ${count}`;
+                        likeCount.classList.remove("hidden");
+                        likeButton.disabled = true;
+                        likeButton.classList.add("opacity-50", "cursor-not-allowed");
+
+                        heart.classList.remove("heart-pulse");
+                        void heart.offsetWidth;
+                        heart.classList.add("heart-pulse");
+                    }
+                });
+        });
+    });
 </script>
-
-<button id="like-button"
-        class="text-[22px] p-5 cursor-pointer absolute bottom-[50px] right-[50px] bg-pink-500 text-white rounded-full shadow-lg hover:bg-pink-600">
-    ❤️ Like
-</button>
-
-<p id="like-count" class="absolute bottom-[130px] right-[50px] text-sm text-white hidden"></p>
-
-      <script >
-          document.addEventListener("DOMContentLoaded", () => {
-              const likeButton = document.getElementById("like-button");
-              const likeCount = document.getElementById("like-count");
-
-              // Load initial count
-              fetch("/api/likes")
-                  .then(res => res.json())
-                  .then(count => {
-                      likeCount.textContent = `Likes: ${count}`;
-                  })
-                  .catch(() => {
-                      likeCount.textContent = "Failed to load likes";
-                  });
-
-              // Handle button click
-              likeButton.addEventListener("click", () => {
-                  fetch("/api/likes/increment", {
-                      method: "POST"
-                  })
-                      .then(res => res.json())
-                      .then(newCount => {
-                          likeCount.textContent = `Likes: ${newCount}`;
-                      })
-                      .catch(() => {
-                          likeCount.textContent = "Error updating like";
-                      });
-              });
-          });
-
-      </script>
-
-
-
 
 </body>
 </html>

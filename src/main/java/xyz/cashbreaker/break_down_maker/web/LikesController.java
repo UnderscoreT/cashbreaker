@@ -22,6 +22,10 @@ public class LikesController {
 
     @PostMapping
     public ResponseEntity<?> addLike(HttpSession session) {
+        System.out.println("Session ID: " + session.getId());
+        System.out.println("Already liked? " + session.getAttribute("liked"));
+
+
         Boolean liked = (Boolean) session.getAttribute("liked");
 
         if (Boolean.TRUE.equals(liked)) {
@@ -40,7 +44,7 @@ public class LikesController {
         }
 
         session.setAttribute("liked", true);
-
+        System.out.println("Like saved, session marked as liked.");
         return ResponseEntity.ok(like.getCount());
     }
 

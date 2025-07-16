@@ -10,13 +10,13 @@ public class WebConfig {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
-
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("*") // You can restrict this in production
-                        .allowedMethods("GET", "POST");
+                        .allowedOrigins("http://localhost:8080") // or whatever your domain is
+                        .allowedMethods("GET", "POST")
+                        .allowCredentials(true);
             }
         };
     }
