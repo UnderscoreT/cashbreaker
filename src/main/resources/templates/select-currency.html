@@ -1,19 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="scroll-smooth">
 <head>
-    <title>Select Currency</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Currency | CashBreaker</title>
     <link rel="stylesheet" th:href="@{/main.css}" />
-
 </head>
-<body class="bg-gray-100 p-6 flex justify-center items-center min-h-screen">
-<form action="/breakdown-with-currency" method="get" class="bg-white p-6 rounded shadow-md">
-    <h1 class="text-xl font-semibold mb-4">Choose Currency</h1>
-    <select name="currency" class="border rounded px-4 py-2 w-full mb-4" required>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 flex items-center justify-center min-h-screen px-4">
+
+<form th:action="@{/breakdown-with-currency}" method="get"
+      class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg w-full max-w-sm space-y-4">
+
+    <h1 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-100">Select Your Currency</h1>
+
+    <select name="currency" required
+            class="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100">
         <option value="" disabled selected>Select a currency</option>
-        <option value="usd">USD</option>
-        <option value="zwd">ZWD</option>
+        <option value="usd">USD - United States</option>
+        <option value="cad">CAD - Canada</option>
+        <option value="eur">EUR - Eurozone</option>
+        <option value="gbp">GBP - United Kingdom</option>
+        <option value="jpy">JPY - Japan</option>
+        <option value="aud">AUD - Australia</option>
+        <option value="cny">CNY - China</option>
+        <option value="inr">INR - India</option>
+        <option value="rub">RUB - Russia</option>
+        <option value="zar">ZAR - South Africa</option>
+        <option value="brl">BRL - Brazil</option>
+        <option value="zwd">ZWD - Zimbabwe</option>
     </select>
-    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Continue</button>
+
+    <button type="submit"
+            class="w-full bg-gray-300 dark:bg-gray-600 text-black dark:text-black font-semibold py-2 px-4 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors">
+        Continue
+    </button>
+
+
+    <a href="/breakdown-with-currency"
+       class="block text-center text-sm text-gray-500 dark:text-gray-400 hover:underline hover:text-purple-600 dark:hover:text-yellow-300">
+        Skip for now (use default: USD)
+    </a>
 </form>
+
 </body>
 </html>
