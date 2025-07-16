@@ -14,7 +14,9 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:8080") // or whatever your domain is
+                        .allowedOrigins("http://localhost:8080"
+                                ,
+                                "https://cashbreaker.sizafuel.xyz")
                         .allowedMethods("GET", "POST")
                         .allowCredentials(true);
             }
