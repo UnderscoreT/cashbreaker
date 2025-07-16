@@ -85,8 +85,9 @@
 
         </div>
         <div class="w-full md:w-1/2 mt-8 md:mt-0 flex justify-center animate-fade-in delay-600">
-            <img th:src="@{img/jakub-zerdzicki-hIbCtd-gjqM-unsplash.jpg}" alt="man working with calculator"
-                 class="rounded-lg shadow-lg w-full max-w-md object-cover" />
+            <img id="heroImage" src="/img/hero1.jpg" alt="Office lady working"
+                 class="rounded-xl shadow-lg w-full max-w-md mx-auto transition-opacity duration-1000" />
+
         </div>
     </div>
 </section>
@@ -102,6 +103,13 @@
 <!-- Footer -->
 <footer class="bg-black text-white text-center py-6 mt-12 text-sm sm:text-base">
     <p>Copyright 2025 &copy; <a href="mailto:obey@sizafuel.xyz" class="underline hover:text-yellow-400">BlestCodeStudios</a></p>
+    <p class="mt-1">
+        Hero images by
+        <a href="https://unsplash.com/@jakubzerdzicki" target="_blank" class="underline hover:text-blue-600">Jakub Żerdzicki</a>,
+        <a href="https://unsplash.com/@mediamodifier" target="_blank" class="underline hover:text-blue-600">Mediamodifier</a>, and
+        <a href="https://unsplash.com/@towfiqu999999" target="_blank" class="underline hover:text-blue-600">Towfiqu Barbhuiya</a>
+        on <a href="https://unsplash.com" target="_blank" class="underline hover:text-blue-600">Unsplash</a>.
+    </p>
 </footer>
 
 <!-- Scripts -->
@@ -135,6 +143,28 @@
 
     setTheme(localStorage.getItem('theme') || 'dark');
 </script>
+
+<script>
+    const heroImages = [
+        '/img/hero1.jpg',
+        '/img/hero2.jpg',
+        '/img/hero3.jpg'
+    ];
+
+    let index = 0;
+    const heroImg = document.getElementById('heroImage');
+
+    setInterval(() => {
+        index = (index + 1) % heroImages.length;
+        heroImg.classList.add("opacity-0");
+
+        setTimeout(() => {
+            heroImg.src = heroImages[index];
+            heroImg.classList.remove("opacity-0");
+        }, 500);
+    }, 10000); // change every 10 seconds
+</script>
+
 
 </body>
 </html>
