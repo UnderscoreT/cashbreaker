@@ -2,6 +2,7 @@ package xyz.cashbreaker.break_down_maker.service;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.cashbreaker.break_down_maker.model.Like;
 import xyz.cashbreaker.break_down_maker.repository.LikeRepository;
 
@@ -22,7 +23,7 @@ public class LikeService {
             likeRepository.save(new Like("breakdown-form", 0));
         }
     }
-
+    @Transactional
     public int incrementLike(String page) {
         Like like = likeRepository.findByPage(page)
                 .orElseGet(() -> new Like(page, 0));
