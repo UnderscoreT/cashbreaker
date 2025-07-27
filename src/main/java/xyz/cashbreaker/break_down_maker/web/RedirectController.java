@@ -1,6 +1,5 @@
 package xyz.cashbreaker.break_down_maker.web;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,7 @@ import java.io.IOException;
 public class RedirectController {
 
     @RequestMapping("/**")
-    public void redirectBasedOnDomain(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void redirectBasedOnDomain(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String host = request.getHeader("host");
 
         if (host != null && host.contains("cashbreaker.sizafuel.xyz")) {
@@ -24,10 +23,12 @@ public class RedirectController {
                 targetUrl += "?" + query;
             }
 
-            response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY); // 301 redirect
+            // 🔁 Send 301 Permanent Redirect
+            response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
             response.setHeader("Location", targetUrl);
         } else {
-            request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
+            // ✅ Do nothing — let Spring route it normally
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }
