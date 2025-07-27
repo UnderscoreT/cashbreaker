@@ -21,7 +21,9 @@
     <meta name="twitter:image" content="https://cashbreaker.sizafuel.xyz/preview.png">
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="canonical" th:href="@{https://www.breakmycash.online/__${#httpServletRequest.requestURI}__}" />
+    <link rel="canonical"
+          th:if="${#httpServletRequest != null}"
+          th:href="@{https://www.breakmycash.online/__${#httpServletRequest.requestURI}__}" />
 
     <link rel="stylesheet" th:href="@{/main.css}">
 </head>

@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Currency | CashBreaker</title>
     <!-- 🔁 Canonical -->
-    <link rel="canonical" th:href="@{https://www.breakmycash.online/__${#httpServletRequest.requestURI}__}" />
+    <link rel="canonical"
+          th:if="${#httpServletRequest != null}"
+          th:href="@{https://www.breakmycash.online/__${#httpServletRequest.requestURI}__}" />
 
     <!-- 🌐 Open Graph (for social sharing) -->
     <meta property="og:title" content="CashBreaker – Global Cash Breakdown App" />
