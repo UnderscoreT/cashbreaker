@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Instant Cash Breakdown Tool | SizaFuel</title>
+    <title>Instant Cash Breakdown Tool </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO + Social -->
@@ -21,7 +21,8 @@
     <meta name="twitter:image" content="https://cashbreaker.sizafuel.xyz/preview.png">
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="canonical" href="https://cashbreaker.sizafuel.xyz">
+    <link rel="canonical" th:href="@{https://www.breakmycash.online/__${#httpServletRequest.requestURI}__}" />
+
     <link rel="stylesheet" th:href="@{/main.css}">
 </head>
 
