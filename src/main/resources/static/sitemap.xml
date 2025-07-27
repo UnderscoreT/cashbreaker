@@ -3,31 +3,31 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://cashbreaker.sizafuel.xyz/</loc>
+        <loc>https://www.breakmycash.online/</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
 
     <url>
-        <loc>https://cashbreaker.sizafuel.xyz/select-currency</loc>
+        <loc>https://www.breakmycash.online/select-currency</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
 
     <url>
-        <loc>https://cashbreaker.sizafuel.xyz/breakdown-form-with-currency</loc>
+        <loc>https://www.breakmycash.online/breakdown-form-with-currency</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
-        <loc>https://cashbreaker.sizafuel.xyz/index</loc>
+        <loc>https://www.breakmycash.online/index</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
 
     <url>
-        <loc>https://cashbreaker.sizafuel.xyz/error</loc>
+        <loc>https://www.breakmycash.online/error</loc>
         <changefreq>monthly</changefreq>
         <priority>0.3</priority>
     </url>
