@@ -4,7 +4,7 @@
 
 ## 🚀 Live Demo
 
-👉 [cashbreaker.sizafuel.xyz](https://cashbreaker.sizafuel.xyz)
+👉 [breakmycash.online](https://www.breakmycash.online)
 
 ## 🧰 Tech Stack
 
@@ -12,7 +12,7 @@
 - **Frontend**: Thymeleaf, Tailwind CSS, JavaScript
 - **Build Tool**: Maven
 - **Hosting**: Railway
-- **Custom Domain**: `cashbreaker.sizafuel.xyz`
+- **Custom Domain**: `breakmycash.online`
 
 ## ✨ Features
 
