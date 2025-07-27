@@ -9,5 +9,6 @@ public class HomeController {
     @GetMapping({"/", "/index"})
     public String home() {
         return "index"; // assumes index.html is in src/main/resources/templates/
+
     }
 }
