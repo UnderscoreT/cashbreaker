@@ -4,6 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Currency | CashBreaker</title>
+    <!-- 🔁 Canonical -->
+    <link rel="canonical" th:href="@{https://www.breakmycash.online/__${#httpServletRequest.requestURI}__}" />
+
+    <!-- 🌐 Open Graph (for social sharing) -->
+    <meta property="og:title" content="CashBreaker – Global Cash Breakdown App" />
+    <meta property="og:description" content="Make cash breakdowns for multiple currencies with real-time totals. Fast, free, and easy!" />
+    <meta property="og:url" th:content="@{https://www.breakmycash.online/__${#httpServletRequest.requestURI}__}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://www.breakmycash.online/images/preview-card.jpg" />
+    <meta property="og:site_name" content="CashBreaker" />
+
+    <!-- 🐦 Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CashBreaker – Global Cash Breakdown App" />
+    <meta name="twitter:description" content="Make fast, currency-aware cash breakdowns from your browser." />
+    <meta name="twitter:image" content="https://www.breakmycash.online/images/preview-card.jpg" />
+
     <link rel="stylesheet" th:href="@{/main.css}" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 flex items-center justify-center min-h-screen px-4">
