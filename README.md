@@ -4,7 +4,7 @@
 
 ## 🚀 Live Demo
 
-👉 [cashbreaker.sizafuel.xyz](https://cashbreaker.sizafuel.xyz)
+👉 [cashbreaker.sizafuel.xyz](https://www.breakmycash.online)
 
 ## 🧰 Tech Stack
 
