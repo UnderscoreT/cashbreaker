@@ -16,6 +16,8 @@ public class RedirectController {
     public void redirectBasedOnDomain(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String host = request.getHeader("host");
 
+
+
         if (host != null && host.contains("cashbreaker.sizafuel.xyz")) {
             String path = request.getRequestURI();
             String query = request.getQueryString();
@@ -28,6 +30,14 @@ public class RedirectController {
             response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
             response.setHeader("Location", targetUrl);
         }
+
+
+        if (host != null && host.equals("breakmycash.online")) {
+            String path = request.getRequestURI();
+            response.setHeader("Location", "https://www.breakmycash.online" + path);
+            response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+        }
+
         else {
             request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
         }
