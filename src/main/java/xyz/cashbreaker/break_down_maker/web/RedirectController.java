@@ -11,17 +11,26 @@ import java.io.IOException;
 @Controller
 public class RedirectController {
 
-    @RequestMapping("/**/{path:[^\\.]*}")
+    @RequestMapping("/**")
     public void redirectBasedOnDomain(HttpServletRequest request,
                                       HttpServletResponse response)
             throws IOException, ServletException {
-        String host = request.getHeader("Host");
-        String uri  = request.getRequestURI();
+
+        String host  = request.getHeader("Host");
+        String uri   = request.getRequestURI();
         String query = request.getQueryString();
+
+        // If the last path segment has a “.” we treat it as a static/resource request:
+        String lastSegment = uri.substring(uri.lastIndexOf('/') + 1);
+        if (lastSegment.contains(".")) {
+            // forward to serve the resource as usual
+            request.getRequestDispatcher(uri).forward(request, response);
+            return;
+        }
 
         boolean isOldDomain = host != null && (
                 host.contains("cashbreaker.sizafuel.xyz") ||
-                        host.equals("breakmycash.online") ||
+                        host.equals("breakmycash.online")        ||
                         host.equals("www.breakmycash.online")
         );
 
@@ -33,7 +42,7 @@ public class RedirectController {
             return;
         }
 
-        // default: forward to your index controller (which serves index.html)
+        // default: forward everything else to your index controller (serves index.html)
         request.getRequestDispatcher("/").forward(request, response);
     }
 }
