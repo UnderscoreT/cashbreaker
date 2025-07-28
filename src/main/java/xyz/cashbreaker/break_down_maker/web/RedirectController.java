@@ -34,7 +34,7 @@ public class RedirectController {
 
         // ✅ Default fallback
         else {
-            request.getRequestDispatcher("/").forward(request, response);
+            request.getRequestDispatcher("/index").forward(request, response);
         }
     }
 }
