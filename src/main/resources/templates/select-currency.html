@@ -5,25 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Currency | CashBreaker</title>
 
-
     <!-- 🔁 Canonical -->
     <link rel="canonical"
-          th:if="${#httpServletRequest != null}"
-          th:href="@{https://www.breakmycash.online/__${#httpServletRequest.requestURI}__}" />
+          th:if="${#request != null}"
+          th:href="${'https://www.breakmycash.online' + #request.requestURI}" />
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCRBELGBQZ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-SCRBELGBQZ');
     </script>
 
     <!-- 🌐 Open Graph (for social sharing) -->
     <meta property="og:title" content="CashBreaker – Global Cash Breakdown App" />
     <meta property="og:description" content="Make cash breakdowns for multiple currencies with real-time totals. Fast, free, and easy!" />
-    <meta property="og:url" th:content="@{https://www.breakmycash.online/__${#httpServletRequest.requestURI}__}" />
+    <meta property="og:url"
+          th:if="${#request != null}"
+          th:content="${'https://www.breakmycash.online' + #request.requestURI}" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://www.breakmycash.online/images/preview-card.jpg" />
     <meta property="og:site_name" content="CashBreaker" />
@@ -64,7 +65,6 @@
             class="w-full bg-gray-300 dark:bg-gray-600 text-black dark:text-black font-semibold py-2 px-4 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors">
         Continue
     </button>
-
 
     <a href="/breakdown-with-currency"
        class="block text-center text-sm text-gray-500 dark:text-gray-400 hover:underline hover:text-purple-600 dark:hover:text-yellow-300">
