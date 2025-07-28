@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 
-@Controller
+//@Controller
 @Profile("!test")
 public class RedirectController {
 
