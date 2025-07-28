@@ -11,30 +11,29 @@ import java.io.IOException;
 @Controller
 public class RedirectController {
 
-    @RequestMapping("/**")
-    public void redirectBasedOnDomain(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String host = request.getHeader("host");
+    @RequestMapping("/**/{path:[^\\.]*}")
+    public void redirectBasedOnDomain(HttpServletRequest request,
+                                      HttpServletResponse response)
+            throws IOException, ServletException {
+        String host = request.getHeader("Host");
+        String uri  = request.getRequestURI();
+        String query = request.getQueryString();
 
-        if (host != null && host.contains("cashbreaker.sizafuel.xyz")) {
-            String path = request.getRequestURI();
-            String query = request.getQueryString();
-            String targetUrl = "https://www.breakmycash.online" + path;
-            if (query != null) {
-                targetUrl += "?" + query;
-            }
+        boolean isOldDomain = host != null && (
+                host.contains("cashbreaker.sizafuel.xyz") ||
+                        host.equals("breakmycash.online") ||
+                        host.equals("www.breakmycash.online")
+        );
+
+        if (isOldDomain) {
+            String target = "https://www.breakmycash.online" + uri
+                    + (query != null ? "?"+query : "");
             response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-            response.setHeader("Location", targetUrl);
+            response.setHeader("Location", target);
+            return;
         }
 
-        else if (host != null && host.equals("breakmycash.online")) {
-            String path = request.getRequestURI();
-            response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-            response.setHeader("Location", "https://www.breakmycash.online" + path);
-        }
-
-        // ✅ Default fallback
-        else {
-            request.getRequestDispatcher("/index").forward(request, response);
-        }
+        // default: forward to your index controller (which serves index.html)
+        request.getRequestDispatcher("/").forward(request, response);
     }
 }
