@@ -13,20 +13,19 @@
 
     <meta property="og:title" content="Instant Cash Breakdown Tool | CashBreaker">
     <meta property="og:description" content="Use this lightning-fast cash breakdown tool made for banks, tills, and customer desks.">
-    <meta property="og:url" content="https://www.breakmycash.online">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://www.breakmycash.online/images/preview-card.jpg">
+    <meta property="og:url"    content="https://www.breakmycash.online">
+    <meta property="og:type"   content="website">
+    <meta property="og:image"  content="https://www.breakmycash.online/images/preview-card.jpg">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Instant Cash Breakdown Tool | CashBreaker">
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="Instant Cash Breakdown Tool | CashBreaker">
     <meta name="twitter:description" content="Break down your cash fast. Free. Global. Instant.">
-    <meta name="twitter:image" content="https://www.breakmycash.online/images/preview-card.jpg">
+    <meta name="twitter:image"       content="https://www.breakmycash.online/images/preview-card.jpg">
 
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="canonical" href="https://www.breakmycash.online" />
+    <link rel="icon"      href="/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://www.breakmycash.online">
 
     <link rel="stylesheet" th:href="@{/main.css}">
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCRBELGBQZ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -36,7 +35,8 @@
     </script>
 </head>
 
-<body class="bg-gradient-to-r from-gray-100 via-white to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen flex items-center justify-center px-4 text-gray-800 dark:text-gray-100">
+<body class="bg-gradient-to-r from-gray-100 via-white to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900
+             min-h-screen flex items-center justify-center px-4 text-gray-800 dark:text-gray-100">
 <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 space-y-4 relative">
 
     <!-- Heading -->
@@ -44,37 +44,58 @@
         <h1 class="text-xl font-bold flex items-center gap-2 text-gray-800 dark:text-white">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3m0-6c1.657 0 3 1.343 3 3s-1.343 3-3 3m0-6v12m0-12C6.477 8 2 9.79 2 12s4.477 4 10 4 10-1.79 10-4-4.477-4-10-4z"/>
+                      d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3m0-6c1.657 0 3 1.343 3 3s-1.343 3-3 3m0-6v12
+                   m0-12C6.477 8 2 9.79 2 12s4.477 4 10 4 10-1.79 10-4-4.477-4-10-4z"/>
             </svg>
-            Cash Breakdown – USD
+            Cash Breakdown – <span th:text="${currency.toUpperCase()}">USD</span>
         </h1>
     </div>
 
-    <!-- Form -->
-    <form action="/submit-breakdown" method="post" class="space-y-3">
-        <input type="hidden" name="currency" value="usd" />
+    <!-- Breakdown Form -->
+    <form th:action="@{/submit-breakdown}" method="post" class="space-y-3">
+        <input type="hidden" name="currency" th:value="${currency}" />
 
-        <!-- repeat these blocks server‑side or via JS -->
-        <div class="flex items-center justify-between border-b py-2">
+        <div th:each="denom : ${denominations}"
+             class="flex items-center justify-between border-b py-2">
             <label class="text-sm font-medium flex gap-1 items-center">
-                <span>$1.00</span><span class="text-xs text-gray-400">×</span>
+                <span th:text="${symbol} + ${denom}">\$1.00</span>
+                <span class="text-xs text-gray-400">×</span>
             </label>
-            <input type="number" name="count_1.00" min="0" value="0"
-                   class="denom-input w-20 px-2 py-1 text-sm border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white dark:border-gray-600">
+            <input type="number"
+                   name="counts"
+                   min="0"
+                   value="0"
+                   th:attr="data-denom=${denom}"
+                   class="denom-input w-20 px-2 py-1 text-sm border rounded-md shadow-sm
+                      focus:outline-none focus:ring-2 focus:ring-blue-400
+                      dark:bg-gray-700 dark:text-white dark:border-gray-600"/>
         </div>
-        <!-- … more denominations … -->
 
         <div class="text-right mt-4 text-sm font-semibold text-gray-700 dark:text-gray-200">
             Total: <span id="totalDisplay">0.00</span>
         </div>
 
-        <div id="copyAlert" class="text-green-600 text-sm font-medium text-center mb-2 hidden">Copied!</div>
+        <div id="copyAlert" class="text-green-600 text-sm font-medium text-center mb-2 hidden">
+            Copied!
+        </div>
 
         <button type="button" onclick="copyBreakdown()"
-                class="w-full bg-gray-100 dark:bg-gray-700 hover:bg-white dark:hover:bg-gray-600 text-gray-800 dark:text-white py-2 px-4 rounded-xl shadow font-semibold flex items-center justify-center gap-2 transition duration-200">
+                class="w-full bg-gray-100 dark:bg-gray-700 hover:bg-white dark:hover:bg-gray-600
+                     text-gray-800 dark:text-white py-2 px-4 rounded-xl shadow font-semibold
+                     flex items-center justify-center gap-2 transition duration-200">
             Copy Breakdown
         </button>
     </form>
+
+    <!-- Like Button -->
+    <div class="like-container mt-6 flex flex-col items-center sm:fixed sm:bottom-12 sm:right-6">
+        <button id="like-button"
+                class="w-[90%] sm:w-auto bg-pink-500 hover:bg-pink-100 text-gray-800 py-2 px-4
+                     rounded-xl shadow font-semibold flex items-center justify-center gap-2 transition duration-200">
+            <span id="heart" class="inline-block">❤️</span> Like
+        </button>
+        <p id="like-count" class="text-sm text-gray-500 mt-1 hidden">Likes: 0</p>
+    </div>
 
     <!-- Footer -->
     <footer class="mt-10 text-center text-xs text-gray-500 dark:text-gray-400">
@@ -85,23 +106,27 @@
 </div>
 
 <script>
+    // inject current year
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    // recalc total whenever any denom-input changes
     function calculateTotal() {
         let total = 0;
         document.querySelectorAll(".denom-input").forEach(i => {
-            const val = parseFloat(i.value) || 0;
-            const denom = parseFloat(i.name.split("_")[1]);
-            total += val * denom;
+            const count = parseFloat(i.value) || 0;
+            const denom = parseFloat(i.dataset.denom) || 0;
+            total += count * denom;
         });
         document.getElementById("totalDisplay").textContent = total.toFixed(2);
     }
+    document.addEventListener("input", calculateTotal);
 
+    // copy breakdown lines + total
     function copyBreakdown() {
         let breakdown = "", total = 0;
         document.querySelectorAll(".denom-input").forEach(i => {
             const count = parseInt(i.value) || 0;
-            const denom = parseFloat(i.name.split("_")[1]);
+            const denom = parseFloat(i.dataset.denom) || 0;
             if (count > 0) {
                 breakdown += `${count} × ${denom.toFixed(2)}\n`;
                 total += count * denom;
@@ -115,7 +140,31 @@
         });
     }
 
-    document.addEventListener("input", calculateTotal);
+    // like‑button logic (unchanged)
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("/api/likes", { method: "GET", credentials: "include" })
+            .then(r=>r.json()).then(c=>{
+            const p = document.getElementById("like-count");
+            p.textContent = `Likes: ${c}`; p.classList.remove("hidden");
+        });
+        document.getElementById("like-button").addEventListener("click", ()=>{
+            fetch("/api/likes",{ method:"POST", credentials:"include" })
+                .then(r => r.status===429 ? alert("You’ve already liked this.") : r.json())
+                .then(c => {
+                    if (c!=null) {
+                        const p = document.getElementById("like-count");
+                        p.textContent = `Likes: ${c}`; p.classList.remove("hidden");
+                        const btn = document.getElementById("like-button");
+                        btn.disabled = true;
+                        btn.classList.add("opacity-50","cursor-not-allowed");
+                        const heart = document.getElementById("heart");
+                        heart.classList.remove("heart-pulse");
+                        void heart.offsetWidth;
+                        heart.classList.add("heart-pulse");
+                    }
+                });
+        });
+    });
 </script>
 </body>
 </html>
